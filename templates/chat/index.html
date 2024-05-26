@@ -1,0 +1,52 @@
+{% extends 'layouts/base.html' %}
+            {% block content %}
+                <div class="columns is-multiline">
+                    <div class="column is-6 is-offset-3 mb-6">
+                        <section class="hero is-primary">
+                            <div class="hero-body">
+                                <p class="title">
+                                    Wellcome {{user}}
+                                </p>
+                                <p class="subtitle">
+                                    Wellcome {{user}}
+                                </p>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="column is-6 is-offset-4">
+                        <aside class="menu">
+                            <p class="menu-label">Click a user to chat</p>
+                            {% for user in users %}
+                                {% if user != request.user %}
+                                    <ul class="menu-list">
+                                        <li><a href="{% url 'private_room' user.username%}">{{user}}</a></li>
+                                    </ul>
+                                {% endif %}
+                            {% endfor %}
+                          </aside>
+                          <div class="field mt-4">
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button class="button is-danger" type="submit">Log Out</button>
+                              </form>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            {% endblock %}
+        </section>
+
+        {% block extra_js %}
+        <script>
+            
+            document.querySelector('#room-name-input').focus();
+            document.querySelector('#room-name-submit').onclick = function(e) {
+                var roomName = document.querySelector('#room-name-input').value;
+                var userName = document.querySelector('#username-input').value;
+
+                window.location.replace(roomName + '/?username=' + userName);
+            };
+        </script>
+        {% endblock %}
+ 
