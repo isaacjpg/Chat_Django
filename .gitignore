@@ -18,6 +18,7 @@ redis-data
 /postgres-data
 /redis-data
 
+
 #src
 *.sqlite*
 
