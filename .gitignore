@@ -12,7 +12,9 @@ venv
 /venv
 /staticfiles/
 env
-venv
+venv 
+postgres-data
+redis-data
 
 #src
 *.sqlite*
