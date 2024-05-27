@@ -15,10 +15,10 @@ load_env(BASE_DIR / ".env")
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_bo78ltbm@1#hb1cff+p5j8vhaa$=j!o=)m80xta9wlzj45_sp'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-#&')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('DEBUG', 'True')== 'True')
 
 ALLOWED_HOSTS = ['*']
 
@@ -71,12 +71,29 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 ASGI_APPLICATION = 'core.asgi.application'
 
+if bool(os.getenv('DOCKERIZED', False)=='True'):
+    REDIS_HOST = 'redis'
+    REDIS_PORT = 6379
+    DATABASE_HOST = 'postgres'
+    DATABASE_DB = 'chat'
+    DATABASE_PORT = 5432
+    DATABASE_USER = 'postgres'
+    DATABASE_PASSWORD = 'postgres'
+else:
+    REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
+    REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
+    DATABASE_HOST = os.environ.get('DATABASE_HOST', 'localhost')
+    DATABASE_PORT = os.environ.get('DATABASE_PORT', 5432)
+    DATABASE_USER = os.environ.get('DATABASE_USER', 'postgres')
+    DATABASE_PASSWORD = os.environ.get('DATABASE_PASSWORD', 'postgres')
+    DATABASE_DB = os.environ.get('DATABASE_DB', 'chat')
+
 # Channels
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('localhost', 6379)],
+            "hosts": [(REDIS_HOST, REDIS_PORT)],
         },
     }
 }
@@ -89,11 +106,11 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.environ.get('DATABASE_DB', 'chat'),
-        'USER': os.environ.get('DATABASE_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'postgres'),
-        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
-        'PORT': os.environ.get('DATABASE_PORT', '5432'),
+        'NAME': DATABASE_DB,
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': DATABASE_HOST,
+        'PORT': DATABASE_PORT,
     }
 }
 
@@ -146,12 +163,30 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://"+REDIS_HOST+":"+str(REDIS_PORT)+"/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     }
 }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 

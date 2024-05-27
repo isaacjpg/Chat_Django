@@ -17,6 +17,8 @@ postgres-data
 redis-data
 /postgres-data
 /redis-data
+/.vscode
+*scratch*.*
 
 
 #src

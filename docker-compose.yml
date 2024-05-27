@@ -1,4 +1,4 @@
-version: '3'
+
 services:
   postgres:
     image: postgres:16-alpine
@@ -18,3 +18,36 @@ services:
     restart: always
     volumes:
       - ./redis-data:/data
+  
+  django_wsgi:
+    container_name: django_wsgi
+    build: .
+    command: uwsgi --socket=:9000 --module=core.wsgi:application --py-autoreload=1
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - .env
+  
+  django_asgi:
+    container_name: django_asgi
+    build: .
+    command: daphne -b 0.0.0.0 -p 8000 core.asgi:application
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - .env
+
+  nginx:
+    image: nginx:1.15.0
+    depends_on:
+      - django_asgi
+      - django_wsgi
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./static:/static
+   
+    ports:
+      - "80:80"
+

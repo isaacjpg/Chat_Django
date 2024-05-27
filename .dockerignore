@@ -1,0 +1,11 @@
+venv/
+env/
+postgres-data/
+redis-data/
+.gitignore
+.vscode/
+docker-compose.yml
+Dockerfile
+scratch.txt
+.git/
+
