@@ -1,16 +1,18 @@
 import json
 import datetime
+import logging
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
 from django.core.cache import caches, cache
 from accounts.models import CustomUser
 
-
+logger = logging.getLogger('consumer')
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
+        logger.info('User %s CONNECTED', self.scope['user'].username)
 
         # Join room
         await self.channel_layer.group_add(
@@ -21,6 +23,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.accept()
     
     async def disconnect(self, close_code):
+        logger.info('User %s DISCONNECTED', self.scope['user'].username)
         # Leave room
         await self.channel_layer.group_discard(
             self.room_group_name,

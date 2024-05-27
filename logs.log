@@ -1,0 +1,10 @@
+2024-05-27 22:47:10,813 [INFO] chat: User admin SIGNED_IN -----
+2024-05-27 22:48:13,709 [INFO] chat: User admin ENTERED_ROOM WITH isaac -----
+2024-05-27 22:51:46,819 [INFO] chat: User admin SIGNED_IN
+2024-05-27 22:52:04,141 [INFO] chat: User admin SIGNED_IN
+2024-05-27 22:52:15,038 [INFO] chat: User admin ENTERED_ROOM WITH isaac
+2024-05-27 22:52:15,114 [INFO] consumer: User admin CONNECTED
+2024-05-27 22:52:37,123 [INFO] chat: User admin SIGNED_IN
+2024-05-27 22:52:37,146 [INFO] consumer: User admin DISCONNECTED
+2024-05-27 22:58:51,341 [ERROR] accounts: User natalia FAILED TO REGISTER with EMAIL natalia@natalia.com
+2024-05-27 22:59:18,478 [INFO] accounts: User natalia REGISTERED with EMAIL natalia@natalia.com

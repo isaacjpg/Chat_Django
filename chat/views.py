@@ -3,12 +3,16 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.cache import caches, cache
 
+import logging
+import datetime
 from accounts.models import CustomUser
 from .models import Room
 
+logger = logging.getLogger('chat')
 
 @login_required
 def index(request):
+    logger.info('User %s SIGNED_IN', request.user.username)
     users = CustomUser.objects.all()
     return render(request, 'chat/index.html', {'users': users})
 
@@ -16,7 +20,7 @@ def index(request):
 @login_required
 def private_room(request,to_user):
     to_user = CustomUser.objects.get(username=to_user)
-   
+    logger.info('User %s ENTERED_ROOM WITH %s', request.user.username, to_user.username)
     #Check if room exists
     room = Room.objects.filter(user1=request.user, user2=to_user).first()
     if not room:

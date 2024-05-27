@@ -173,18 +173,33 @@ CACHES = {
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
     'handlers': {
         'file': {
-            'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'debug.log',
+            'filename': 'logs.log',
+            'formatter': 'standard',
         },
     },
     'loggers': {
-        'django': {
+        'chat': {
             'handlers': ['file'],
+            'propagate': False,
             'level': 'INFO',
-            'propagate': True,
+        },
+        'consumer': {
+            'handlers': ['file'],
+            'propagate': False,
+            'level': 'INFO',
+        },
+        'accounts': {
+            'handlers': ['file'],
+            'propagate': False,
+            'level': 'INFO',
         },
     },
 }

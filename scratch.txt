@@ -6,6 +6,10 @@ https://gautamankul.medium.com/how-deploy-an-asgi-django-application-with-postgr
 
 https://eidel.io/dockerizing-django-uwsgi-postgres/
 
+https://dev.to/pragativerma18/the-complete-guide-to-logging-in-django-5fde
+
+
+
 
 We would like to offer the opportunity to complete the following coding tests. Successful completion comes with a $50 bonus:
 
