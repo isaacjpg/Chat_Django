@@ -15,7 +15,7 @@ env
 venv 
 postgres-data/
 redis-data/
-/.vscode
+.vscode/
 *scratch*.*
 scratch.txt
 htmlcov/
