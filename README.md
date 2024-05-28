@@ -50,3 +50,6 @@ Access the root url. If you are not logged in, it will redirect to the login pag
 After login in you will encounter a list of registered users. Just click the user you want to chat with. It is not necesary that the other user is online to write. All messages will be in cache and can be read when the other user connects. 
 
 To go back to the list of users, just click GOBACK and to log out click LOG Out. 
+
+## Logs
+You can find logs in the logfiles folder.
