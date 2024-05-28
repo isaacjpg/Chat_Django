@@ -8,3 +8,11 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'password1', 'password2')
+    
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not email:
+            raise forms.ValidationError('This field is required.')
+        if email and CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError('This email is already in use.')
+        return email

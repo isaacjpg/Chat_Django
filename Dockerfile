@@ -9,10 +9,3 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 ADD . /code/
-#RUN python manage.py migrate
-
-#gunicorn
-#CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
-
-#daphne
-#CMD ["daphne", "-b", "0.0.0.0", "-p", "8001", "core.asgi:application"]

@@ -20,6 +20,8 @@ redis-data
 /.vscode
 *scratch*.*
 scratch.txt
+htmlcov/
+
 
 
 #src

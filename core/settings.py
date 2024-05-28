@@ -181,7 +181,7 @@ LOGGING = {
     'handlers': {
         'file': {
             'class': 'logging.FileHandler',
-            'filename': 'logs.log',
+            'filename': "logfiles/logger.log",
             'formatter': 'standard',
         },
     },

@@ -18,7 +18,7 @@ class SignUpView(generic.CreateView):
         return super().form_valid(form)
     
     def form_invalid(self, form):
-        logger.error('User %s FAILED TO REGISTER with EMAIL %s', form.cleaned_data['username'], form.cleaned_data['email'])
+        logger.error('User %s FAILED TO REGISTER with EMAIL %s', form.cleaned_data['username'], form.cleaned_data['email'] if form.cleaned_data.get('email') else 'NO EMAIL')
         return super().form_invalid(form)
     
 
