@@ -13,10 +13,8 @@ venv
 /staticfiles/
 env
 venv 
-postgres-data
-redis-data
-/postgres-data
-/redis-data
+postgres-data/
+redis-data/
 /.vscode
 *scratch*.*
 scratch.txt
